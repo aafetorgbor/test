@@ -1,19 +1,12 @@
 pipeline {
     
-  agent {
-             label "docker-agent-python"
-          }
-    
-    stages {
-        
-        stage('CHECK OUT') {
-            steps {
-                
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/aafetorgbor/test.git']]])
-            }
-        }
+  agent any
         
         stage('RUN TEST') {
+            
+            agent {
+             label "docker-agent-python"
+          }
           
             steps {
                 sh '''
